@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "ReactNative",
-    "slug": "ReactNative",
-    "version": "1.0.0",
+    "name": "Quiz App",
+    "slug": "quiz-app",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/icon1.png",
     "scheme": "reactnative",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -19,7 +19,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.raaddalwai.quiz"
     },
     "web": {
       "output": "static",
@@ -43,6 +44,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "95af022c-a8bb-46ba-9414-8e4efc660866"
+      }
     }
   }
 }
