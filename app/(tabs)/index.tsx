@@ -1,5 +1,6 @@
+import { clearQuizHistory, getQuizHistory, QuizHistory } from "@/storage/manageQuizStorage";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 const styles = StyleSheet.create({
@@ -29,6 +30,13 @@ export default function Index() {
 
 
   const [quizTopic, setQuizTopic] = useState("React Native");
+  const [quizHistoryList, setQuizHistoryList] = useState<QuizHistory[]>([]);
+
+  useEffect(() => {
+    getQuizHistory().then((data) => {
+      setQuizHistoryList(data);
+    })
+  }, [])
   return (
     // <SafeAreaView style={styles.container} >
     <View style={styles.container}>
@@ -49,7 +57,8 @@ export default function Index() {
         alert("Please enter a valid quiz topic");
         return;
       }
-      router.push("/quiz")
+
+      clearQuizHistory()
       
       }}>
       <Text style={{color: '#ffffff', fontWeight: 'bold', textAlign: 'center'}}>Join Quiz</Text>
@@ -60,7 +69,7 @@ export default function Index() {
         alert("Please enter a valid quiz topic");
         return;
       }
-      router.push("/quiz")
+      router.push({pathname:"/quiz", params: {topic: quizTopic}})
       
       }}>
       <Text style={{color: '#ffffff', fontWeight: 'bold', textAlign: 'center'}}>Start Quiz</Text>
@@ -72,27 +81,22 @@ export default function Index() {
     <Text style={{padding: 28, textAlign: 'center', fontSize: 16, fontWeight: 'bold'}}>Past Quizzes</Text>
 
     <FlatList
-    data={[
-      {
-      }, {}, {}, {}, {}, {}, {}, {}, {}, {}
-    ]}
+    data={quizHistoryList}
     keyExtractor={(item, index) => index.toString()}
     renderItem={({ item }) => (
       <View style={{flexDirection: "row", padding: 20, backgroundColor: '#ffffff', marginHorizontal: 28, marginVertical: 8, borderRadius: 8, elevation: 1}}>
         <View style={{flex:6, flexDirection: "column", gap: 10}}>
-        <Text style={{fontSize: 16, fontWeight: "bold"}}>Quiz</Text>
+        <Text style={{fontSize: 16, fontWeight: "bold"}}>Quiz {item.id} - {item.topic}</Text>
         <View style={{flexDirection:"row"}}>
           <Text>
-            Score: 45
+            {new Date(item.timestamp).toLocaleDateString("en-US", {
+              month: "short",
+              day: "2-digit",
+              year: "numeric",
+            })}
           </Text>
 
         </View>
-
-        </View>
-        <View>
-          <Text>
-            
-          </Text>
 
         </View>
       </View>

@@ -1,8 +1,9 @@
-import { router } from "expo-router";
+import { addQuizHistory, getQuizHistory } from "@/storage/manageQuizStorage";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-// AIzaSyDZh6bH0xQI8oRbrPb2Wn-Ss6agRJMJkAI
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -76,6 +77,8 @@ const styles = StyleSheet.create({
 });
 
 export default function Index() {
+  const { topic } = useLocalSearchParams<{ topic: string }>();
+
   const correctColor = "#aaffbeff";
   const wrongColor = "#ffe7e6ff";
   type QuestionType = {
@@ -99,6 +102,7 @@ export default function Index() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const fetchQuestions = () => {
+
       if (Number(questionSet) > 3) {
         router.replace("/");
 
@@ -108,15 +112,28 @@ export default function Index() {
         .then((res) => res.json())
         .then((data) => {
 
-          console.log(data.questions)
           setQuestionData(data.questions);
-          console.log(questionData);
           setQuestion(data.questions[0].question);
           setOptions(data.questions[0].options); 
           setCorrectOption(Number(data.questions[0].correct));
           setTimeout(() => {
             setLoading(false)
             setQuestionSet(Number(questionSet) + 1);
+            getQuizHistory()
+            .then((history) => {
+              console.log(history);
+              addQuizHistory({
+                id: history.length + 1,
+                topic: String(topic),
+                questions: data.questions,
+                score: 0,
+                timestamp: Date.now(),
+              })
+
+              console.log("Done")
+            });
+          
+            
           }, 1000);
 
         })
@@ -141,9 +158,8 @@ export default function Index() {
   const [fourthOptionBackground, setFourthOptionBackground] = useState("#ffffff");
 
   if (loading) {
-    setInterval(() => {
-      
-    }, 1000);
+
+
     
     return (
       <SafeAreaView style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -298,7 +314,6 @@ export default function Index() {
                   setAttempted(false);
 
                 }
-                console.log(questionData[0])
                 setFirstOptionBackground("#ffffff");
                 setSecondOptionBackground("#ffffff");
                 setThirdOptionBackground("#ffffff");
