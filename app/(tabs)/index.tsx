@@ -33,6 +33,9 @@ export default function Index() {
     // <SafeAreaView style={styles.container} >
     <View style={styles.container}>
   <View style={styles.topContainer}> 
+    <Text
+    style={{fontSize: 20, fontWeight: 'bold', marginBottom: 30}}
+    >Join or Start a Quiz</Text>
     <TextInput
     placeholder="Topic..."
     value={quizTopic}
@@ -75,9 +78,9 @@ export default function Index() {
     ]}
     keyExtractor={(item, index) => index.toString()}
     renderItem={({ item }) => (
-      <View style={{flexDirection: "row", padding: 20, backgroundColor: '#ffffff', marginHorizontal: 28, marginVertical: 8, borderRadius: 8}}>
+      <View style={{flexDirection: "row", padding: 20, backgroundColor: '#ffffff', marginHorizontal: 28, marginVertical: 8, borderRadius: 8, elevation: 1}}>
         <View style={{flex:6, flexDirection: "column", gap: 10}}>
-        <Text style={{fontSize: 16, fontWeight: "bold"}}>Quiz Item</Text>
+        <Text style={{fontSize: 16, fontWeight: "bold"}}>Quiz</Text>
         <View style={{flexDirection:"row"}}>
           <Text>
             Score: 45
@@ -86,7 +89,7 @@ export default function Index() {
         </View>
 
         </View>
-        <View >
+        <View>
           <Text>
             
           </Text>

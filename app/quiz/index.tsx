@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   nextButton: {
-    marginTop: 20,
     alignSelf: "center",
     alignContent: "center",
     justifyContent: "center",
@@ -59,9 +58,26 @@ const styles = StyleSheet.create({
     height: 3,
     backgroundColor: "#e0e0e0",
   },
+
+  commentContainer: {
+    width: "100%",
+    paddingVertical: 30,
+    height: 80,
+    backgroundColor: "#fcfcfcff",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  comment: {
+    fontSize: 18,
+    fontWeight: "bold",
+    width: "80%",
+  },
 });
 
 export default function Index() {
+  const correctColor = "#aaffbeff";
+  const wrongColor = "#ffe7e6ff";
   type QuestionType = {
     question: string;
     options: string[];
@@ -71,6 +87,7 @@ export default function Index() {
   const [loading, setLoading] = useState(true);
   const [questionData, setQuestionData] = useState<QuestionType[]>([]);
   const [question, setQuestion] = useState("What is the capital of France?");
+  const [comment, setComment] = useState("");
   const [options, setOptions] = useState([
     "A. Berlin",
     "B. Madrid",
@@ -161,13 +178,16 @@ export default function Index() {
                 <Pressable
                   onPress={() => {
                     if (!attempted){
-                    console.log("Selected:", options[0]);
-                    setQuestion(`You selected: ${options[0]}`);
                     setAttempted(true);
                     if (options[0] === options[correctOption]) {
-                      setFirstOptionBackground("#a0e7a0");
+                      setFirstOptionBackground(correctColor);
+                      setComment("That's Correct")
                     } else {
-                      setFirstOptionBackground("#e7a0a0");
+                      setFirstOptionBackground(wrongColor);
+                      setComment("Ohh nooo!")
+
+
+
                     }
                   }
                   }}
@@ -184,13 +204,13 @@ export default function Index() {
                 <Pressable
                   onPress={() => {
                     if (!attempted){
-                    console.log("Selected:", options[1]);
-                    setQuestion(`You selected: ${options[1]}`);
                     setAttempted(true);
                     if (options[1] === options[correctOption]) {
-                      setSecondOptionBackground("#a0e7a0");
+                      setSecondOptionBackground(correctColor);
+                      setComment("That's Correct")
                     } else {
-                      setSecondOptionBackground("#e7a0a0");
+                      setSecondOptionBackground(wrongColor);
+                      setComment("Ohh nooo!")
                     }
                   }
                   }}
@@ -207,13 +227,13 @@ export default function Index() {
                 <Pressable
                   onPress={() => {
                     if (!attempted){
-                    console.log("Selected:", options[2]);
-                    setQuestion(`You selected: ${options[2]}`);
                     setAttempted(true);
                     if (options[2] === options[correctOption]) {
-                      setThirdOptionBackground("#a0e7a0");
+                      setThirdOptionBackground(correctColor);
+                      setComment("That's Correct")
                     } else {
-                      setThirdOptionBackground("#e7a0a0");
+                      setThirdOptionBackground(wrongColor);
+                      setComment("Ohh nooo!")
                     }
                   }
                   }}
@@ -229,14 +249,14 @@ export default function Index() {
 
                 <Pressable
                   onPress={() => {
-                    if (!attempted){
-                    console.log("Selected:", options[3]);
-                    setQuestion(`You selected: ${options[3]}`);
+                    if (!attempted){  
                     setAttempted(true);
                     if (options[3] === options[correctOption]) {
-                      setFourthOptionBackground("#a0e7a0");
+                      setFourthOptionBackground(correctColor);
+                      setComment("That's Correct")
                     } else {
-                      setFourthOptionBackground("#e7a0a0");
+                      setFourthOptionBackground(wrongColor);
+                      setComment("Ohh nooo!")
                     }
                   }
                   }}
@@ -251,7 +271,14 @@ export default function Index() {
                 </Pressable>
 
 
+
+
+
           </View>
+
+
+
+
           <View style={{ paddingHorizontal: 28, paddingTop: 16, backgroundColor: "#fbfbfbff", alignItems: 'center', justifyContent: 'center' }}> 
             <Pressable style={({ pressed }) =>[styles.nextButton, {elevation: pressed ? attempted ? 1 : 2 : 2, backgroundColor: attempted ? "#34bba9ff" : "#c0e9e9ff" }]}
               onPress={() => {
@@ -281,6 +308,19 @@ export default function Index() {
               <Text style={{ textAlign: "center", fontSize: 18, fontWeight : "bold", color: "#ffffffff" }}>Next</Text>
             </Pressable>
           </View>
+
+
+          {
+            attempted && (
+          <View style={styles.commentContainer}>
+            <Text style={styles.comment}>
+              
+              {/* {comment} */}
+            </Text>
+          </View>              
+            )
+          }
+
 
                      
         </View>
