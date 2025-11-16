@@ -1,50 +1,186 @@
-# Welcome to your Expo app 👋
+# Quiz App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A cross-platform interactive quiz application built with React Native and Expo, featuring a modern UI and real-time quiz functionality.
 
-## Get started
+## Overview
 
-1. Install dependencies
+This is a mobile-first quiz application that allows users to join or start quizzes on various topics, answer multiple-choice questions, and track their past quiz performance. The app uses Expo Router for navigation and features a clean, intuitive interface with tab-based navigation.
 
+## Features
+
+- **Quiz Management**: Start or join quizzes on custom topics
+- **Interactive Question Flow**: Answer multiple-choice questions with visual feedback
+- **Progress Tracking**: Visual progress bar showing quiz completion status
+- **Answer Validation**: Immediate feedback on correct/incorrect answers with color-coded responses
+- **Quiz History**: View past quiz attempts and scores
+- **Tab Navigation**: Easy navigation between Home and Account screens
+- **Dynamic Question Loading**: Questions fetched from external API
+- **Responsive Design**: Optimized for both iOS and Android devices
+
+## Tech Stack
+
+- **Framework**: React Native 0.81.5
+- **Runtime**: Expo SDK 54
+- **Navigation**: Expo Router 6.0 with file-based routing
+- **Language**: TypeScript 5.9
+- **UI Components**: React Native core components
+- **Icons**: Expo Vector Icons (Ionicons)
+- **Animation**: React Native Reanimated 4.1
+- **Gestures**: React Native Gesture Handler 2.28
+- **State Management**: React Hooks (useState, useEffect)
+
+## Project Structure
+
+```
+app/
+├── (tabs)/              # Tab navigation group
+│   ├── _layout.tsx      # Tab layout configuration
+│   ├── index.tsx        # Home screen (quiz start/join)
+│   └── account.tsx      # Account/profile screen
+└── quiz/                # Quiz feature
+    ├── _layout.tsx      # Quiz layout wrapper
+    └── index.tsx        # Quiz question screen
+```
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd ReactNative
+   ```
+
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. Start the development server:
    ```bash
-   npx expo start
+   npm start
    ```
 
-In the output, you'll find options to open the app in a
+## Available Scripts
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- `npm start` - Start the Expo development server
+- `npm run android` - Run on Android device/emulator
+- `npm run ios` - Run on iOS simulator
+- `npm run web` - Run in web browser
+- `npm run lint` - Run ESLint for code quality
+- `npm run reset-project` - Reset to blank project template
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Development
 
-## Get a fresh project
+### Running the App
 
-When you're ready, run:
+After starting the development server, you can run the app on:
+
+- **Physical Device**: Scan the QR code with Expo Go app
+- **iOS Simulator**: Press `i` in terminal (macOS only)
+- **Android Emulator**: Press `a` in terminal
+- **Web Browser**: Press `w` in terminal
+
+### Building for Production
+
+The project is configured with EAS Build for production deployments:
 
 ```bash
-npm run reset-project
+# Development build
+eas build --profile development
+
+# Preview build
+eas build --profile preview
+
+# Production build
+eas build --profile production
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## App Configuration
 
-## Learn more
+- **App Name**: Quiz App
+- **Package**: com.raaddalwai.quiz
+- **Version**: 1.0.1
+- **Orientation**: Portrait only
+- **New Architecture**: Enabled
+- **Features**: Edge-to-edge display on Android, custom splash screen
 
-To learn more about developing your project with Expo, look at the following resources:
+## Key Features Implementation
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Home Screen (Quiz Start)
+- Topic input field for quiz customization
+- Dual action buttons: Join Quiz and Start Quiz
+- FlatList displaying past quiz history with scores
+- Input validation before quiz navigation
 
-## Join the community
+### Quiz Screen
+- Dynamic question rendering from API
+- Four multiple-choice options per question
+- Color-coded answer feedback (green for correct, red for incorrect)
+- Progress bar tracking quiz completion
+- Next button enabled only after attempting current question
+- Auto-loading of new question sets
+- Automatic navigation after completing all question sets
 
-Join our community of developers creating universal apps.
+### Navigation
+- Tab-based navigation with Home and Account tabs
+- Custom tab bar icons using Ionicons
+- Color-themed navigation elements
+- Hidden headers for cleaner UI
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## API Integration
+
+The app fetches quiz questions from an external JSON API:
+```
+https://raaddalwai.github.io/json-testing/myapi.json
+```
+
+Later on this can be changed with Gemini API to get new questions based on the topic entered.
+
+Expected JSON structure:
+```json
+{
+  "questions": [
+    {
+      "question": "Question text?",
+      "options": ["Option A", "Option B", "Option C", "Option D"],
+      "correct": "0"  // Index of correct option
+    }
+  ]
+}
+```
+
+## Styling
+
+The app uses a custom color scheme:
+- Primary: `#1aad9f` (Teal)
+- Secondary: `#41cdbfff` (Light Teal)
+- Success: `#aaffbeff` (Light Green)
+- Error: `#ffe7e6ff` (Light Red)
+- Background: `#f9f9f9` (Light Gray)
+
+## Future Enhancements
+
+Potential improvements based on the current codebase:
+- Implement user authentication and account management
+- Add score tracking and leaderboards
+- Persist quiz history locally using AsyncStorage
+- Add timer functionality for timed quizzes
+- Implement quiz sharing functionality
+- Add support for different quiz difficulty levels
+- Integrate backend for real-time multiplayer quizzes
+
+## Requirements
+
+- Node.js 16+
+- npm or yarn
+- Expo CLI
+- iOS Simulator (for iOS development on macOS)
+- Android Studio and Android SDK (for Android development)
+
+## License
+
+This project is private and not licensed for public distribution.
+
+## Contributing
+
+This is a private project. Please contact the repository owner for contribution guidelines.
