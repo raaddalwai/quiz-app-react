@@ -57,7 +57,7 @@ app/
 
 3. Start the development server:
    ```bash
-   npm start
+   npm expo start
    ```
 
 ## Available Scripts
