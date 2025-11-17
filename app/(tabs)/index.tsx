@@ -58,7 +58,11 @@ export default function Index() {
         return;
       }
 
-      clearQuizHistory()
+      clearQuizHistory().then(() => {
+            getQuizHistory().then((data) => {
+      setQuizHistoryList(data);
+    })
+      })
       
       }}>
       <Text style={{color: '#ffffff', fontWeight: 'bold', textAlign: 'center'}}>Join Quiz</Text>
@@ -93,7 +97,7 @@ export default function Index() {
               month: "short",
               day: "2-digit",
               year: "numeric",
-            })}
+            })} 
           </Text>
 
         </View>
